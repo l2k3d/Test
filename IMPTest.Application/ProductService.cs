@@ -16,7 +16,9 @@ public class ProductService(IProductRepository productRepository,IProductCapacit
 
     public async Task<IEnumerable<ProductRecord>> GetProductsAsync()
     {
-        return await _productRepository.GetAll();
+        //todo: Implement Mapping
+        throw new NotImplementedException();
+       // return await _productRepository.GetAll();
     }
 
     public async Task<bool> RecieveProductAsync(ProductRecord productRecord)
