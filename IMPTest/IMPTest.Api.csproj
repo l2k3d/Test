@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
@@ -12,11 +12,19 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.19.5" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="6.5.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\IMPTest.Application\IMPTest.Application.csproj" />
-    <ProjectReference Include="..\IMPTest.Data\IMPTest.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EditorConfigFiles Remove="C:\source\IMPTest\IMPTest\.editorconfig" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="C:\source\IMPTest\IMPTest\.editorconfig" />
   </ItemGroup>
 
 </Project>

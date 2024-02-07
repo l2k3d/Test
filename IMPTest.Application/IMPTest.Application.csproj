@@ -11,7 +11,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IMPTest.Common\IMPTest.Common.csproj" />
     <ProjectReference Include="..\IMPTest.Data\IMPTest.Data.csproj" />
   </ItemGroup>
 

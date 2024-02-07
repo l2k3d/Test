@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace IMPTest.Common.Models;
+namespace IMPTest.Application.Dto;
 
-public class CapacityRecord
+public class CapacityRecordDto
 {
     [Required]
     public int? ProductId { get; set; }
 
     [Required]
-    [Range(1, 1000)]
-    public int? Capacity { get; set; }
+    [Range(1, 999)]
+    public int? Quantity { get; set; }
 }

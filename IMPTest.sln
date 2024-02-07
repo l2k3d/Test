@@ -9,16 +9,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMPTest.Application", "IMPT
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMPTest.Data", "IMPTest.Data\IMPTest.Data.csproj", "{89F6D6BF-B82D-436D-9820-E8C2A9449118}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMPTest.Common", "IMPTest.Common\IMPTest.Common.csproj", "{68410247-D752-4BFF-B67E-908DEFD3FFDF}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMPTest.Application.Tests.Unit", "IMPTest.Application.Tests.Unit\IMPTest.Application.Tests.Unit.csproj", "{33E330ED-5D44-4D1F-80E1-29D9FDA16FA2}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMPTest.Data.Tests.Unit", "IMPTest.Data.Tests.Unit\IMPTest.Data.Tests.Unit.csproj", "{26C89635-570A-41EE-84E8-8C69222D1778}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IMPTest.Api.Tests.Unit", "IMPTest.Api.Tests.Unit\IMPTest.Api.Tests.Unit.csproj", "{8755A26D-BD68-40B1-922D-B0C60C983CF5}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IMPTest.Tests.Integration", "..\..\Users\l2kda\source\repos\IMPTest\IMPTest.Tests.Integration\IMPTest.Tests.Integration.csproj", "{D778920B-0570-4C02-A32A-EAF976D31414}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,26 +27,6 @@ Global
 		{89F6D6BF-B82D-436D-9820-E8C2A9449118}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89F6D6BF-B82D-436D-9820-E8C2A9449118}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89F6D6BF-B82D-436D-9820-E8C2A9449118}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68410247-D752-4BFF-B67E-908DEFD3FFDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68410247-D752-4BFF-B67E-908DEFD3FFDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68410247-D752-4BFF-B67E-908DEFD3FFDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68410247-D752-4BFF-B67E-908DEFD3FFDF}.Release|Any CPU.Build.0 = Release|Any CPU
-		{33E330ED-5D44-4D1F-80E1-29D9FDA16FA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{33E330ED-5D44-4D1F-80E1-29D9FDA16FA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{33E330ED-5D44-4D1F-80E1-29D9FDA16FA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{33E330ED-5D44-4D1F-80E1-29D9FDA16FA2}.Release|Any CPU.Build.0 = Release|Any CPU
-		{26C89635-570A-41EE-84E8-8C69222D1778}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{26C89635-570A-41EE-84E8-8C69222D1778}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{26C89635-570A-41EE-84E8-8C69222D1778}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{26C89635-570A-41EE-84E8-8C69222D1778}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8755A26D-BD68-40B1-922D-B0C60C983CF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8755A26D-BD68-40B1-922D-B0C60C983CF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8755A26D-BD68-40B1-922D-B0C60C983CF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8755A26D-BD68-40B1-922D-B0C60C983CF5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D778920B-0570-4C02-A32A-EAF976D31414}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D778920B-0570-4C02-A32A-EAF976D31414}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D778920B-0570-4C02-A32A-EAF976D31414}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D778920B-0570-4C02-A32A-EAF976D31414}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

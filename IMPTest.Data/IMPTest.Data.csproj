@@ -11,8 +11,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="8.0.1" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\IMPTest.Common\IMPTest.Common.csproj" />
-  </ItemGroup>
-
 </Project>
