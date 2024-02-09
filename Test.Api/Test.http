@@ -1,0 +1,40 @@
+@Test_HostAddress = http://localhost:5192
+
+### POST /api/v1/products/capacity
+POST http://localhost:5192/api/v1/products/capacity
+Content-Type: application/json
+
+{
+  "productId": 1,
+  "quantity": 20
+}
+
+### GET /api/v1/products
+GET http://localhost:5192/api/v1/products?id=1
+
+### POST /api/v1/products
+POST http://localhost:5192/api/v1/products
+Content-Type: application/json
+
+{
+  "id": 1,
+  "quantity": 10
+}
+
+### POST /receive
+POST http://localhost:5192/receive
+Content-Type: application/json
+
+{
+  "id": 1,
+  "quantity": 10
+}
+
+### POST /dispatch
+POST http://localhost:5192/dispatch
+Content-Type: application/json
+
+{
+  "id": 1,
+  "quantity": 10
+}
