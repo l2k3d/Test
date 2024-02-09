@@ -7,6 +7,7 @@ public static class Dependencies
     public static void ConfigureDependencies(this IServiceCollection services)
     {
         services.ApplicationLayerConfig();
+        services.AddAutoMapper(typeof(AutoMapperConfiguration));
         services.AddRouting(options => options.LowercaseUrls = true);
         services.AddControllers();
         services.AddHealthChecks();

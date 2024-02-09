@@ -1,35 +1,68 @@
-﻿using FakeItEasy;
-using FluentAssertions;
-using Test.Application.Dto;
-using Test.Application.Interfaces;
-using Test.Application.Models;
+﻿using FluentAssertions;
 using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
+using Test.Api.Models.RequestModels;
 using Xunit;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 
 namespace Test.Tests.Integration.Controllers;
 
-public class ProductsControllerTests(WebApplicationFactory<Program> sut) : IClassFixture<WebApplicationFactory<Program>>
+public class ProductsControllerTests(WebApplicationFactory<Program> sut) : BaseControllerTest(sut)
 {
-    private readonly WebApplicationFactory<Program> _sut = sut;
-
     [Fact]
-    public async Task Products_ReturnsOkResult()
+    public async Task Receiving_Products_Beyond_Capacity_Should_Return_Error()
     {
         // Arrange
-        var productServiceFake = A.Fake<IProductService>();
-        A.CallTo(() => productServiceFake.GetAllProductsAsync(A<int?>._))
-            .Returns(Task.FromResult(Result.Success<IEnumerable<ProductRecordDto>>()));
-
-        var client = _sut.CreateClient();
+        var requestContent = new ReceiveProductRequestModel
+        {
+            ProductId = 1,
+            Quantity = 1000
+        };
 
         // Act
-        var response = await client.GetAsync("/api/v1/products");
+        var response = await Post_ReceiveProductAsync(requestContent);
 
         // Assert
-        response.Should().NotBeNull();
+        response.StatusCode
+            .Should()
+            .Be(HttpStatusCode.BadRequest);
+    }
+
+    [Fact]
+    public async Task Receiving_Products_Within_Capacity_Should_Update_Quantity()
+    {
+        // Arrange
+        var requestContent = new ReceiveProductRequestModel { ProductId = 1, Quantity = 100 };
+
+        // Act
+        var response = await Post_ReceiveProductAsync(requestContent);
+
+        // Assert
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
 
+    [Fact]
+    public async Task Dispatching_Products_Should_Update_Quantity()
+    {
+        // Arrange
+        var requestContent = new DispatchProductRequestModel { ProductId = 1, Quantity = 20 };
+
+        // Act
+        var response = await Post_DispatchProductAsync(requestContent);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
+
+    [Fact]
+    public async Task Retrieving_Product_Inventory_Should_Return_Correct_Inventory_Data()
+    {
+        // Arrange
+        var requestContent = new DispatchProductRequestModel { ProductId = 1, Quantity = 20 };
+
+        // Act
+        var response = await Post_DispatchProductAsync(requestContent);
+
+        // Assert
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
+    }
 }

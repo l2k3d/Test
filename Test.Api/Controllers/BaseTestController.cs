@@ -1,7 +1,7 @@
 ﻿using Test.Application.Dto;
 using Microsoft.AspNetCore.Mvc;
 using AutoMapper;
-using Test.Api.Models;
+using Test.Api.Models.RequestModels;
 
 namespace Test.Controllers;
 

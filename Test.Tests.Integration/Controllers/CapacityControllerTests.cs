@@ -1,37 +1,36 @@
-﻿using FluentAssertions;
-using Test.Application.Dto;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
-using System.Net.Http.Json;
 using Xunit;
+using FluentAssertions;
+using Test.Api.Models.RequestModels;
 
 namespace Test.Tests.Integration.Controllers;
 
 public class CapacityControllerTests(WebApplicationFactory<Program> sut) : BaseControllerTest(sut)
 {
-
     [Fact]
     public async Task Capacity_ReturnsOkResult()
     {
-
-        var productRequestBody = new ProductRecordDto
+        // Arrange
+        var addProductRequestModel = new AddProductRequestModel
         {
-            Id = 0,
-            Quantity = 10,
+            Name = "name",
+            Quantity = 20
         };
 
-        await _client.PostAsJsonAsync("/api/v1/products/", productRequestBody);
+        await Post_AddProductRecordAsync(addProductRequestModel);
 
-        var requestBody = new CapacityRecordDto
+        var addCapacityRequestModel = new AddCapacityRequestModel
         {
             ProductId = 1,
-            Quantity = 20,
+            Quantity = 20
         };
 
-        var response = await _client.PostAsJsonAsync("/api/v1/products/capacity", requestBody);
+        // Act
+        var response = await Post_AddCapacityRecordAsync(addCapacityRequestModel);
 
+        // Assert
         response.Should().NotBeNull();
         response.StatusCode.Should().Be(HttpStatusCode.OK);
     }
-
 }

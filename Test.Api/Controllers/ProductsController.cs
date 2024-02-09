@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using Test.Api.Handlers;
 using AutoMapper;
-using Test.Api.Models;
+using Test.Api.Models.RequestModels;
 
 namespace Test.Controllers;
 
