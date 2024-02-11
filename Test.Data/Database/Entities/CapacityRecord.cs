@@ -10,5 +10,5 @@ public class CapacityRecordEntity : Entity<CapacityRecordEntity>
     public int Quantity { get; set; }
 
     // Define navigation property to ProductRecordEntity if needed
-    public virtual ProductRecordEntity? Products { get; set; }
+    public virtual ProductRecordEntity Products { get; set; }
 }
