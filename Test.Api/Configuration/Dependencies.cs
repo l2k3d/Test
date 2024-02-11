@@ -14,4 +14,18 @@ public static class Dependencies
         services.AddEndpointsApiExplorer();
         services.AddSwaggerGen();
     }
+
+    public static void ConfigureMiddleware(this WebApplication app, IWebHostEnvironment environment)
+    {
+        if (environment.IsDevelopment())
+        {
+            app.UseSwagger();
+            app.UseSwaggerUI();
+        }
+
+        app.UseHttpsRedirection();
+        app.UseAuthorization();
+        app.MapControllers();
+        app.MapHealthChecks("/health");
+    }
 }

@@ -7,7 +7,7 @@ namespace Test.Application.Interfaces;
 
 public interface IBaseService<TEntity, TDto> where TEntity : Entity<TEntity> where TDto : BaseDto
 {
-    Task<Result<TDto>> GetByIdAsync(int id);
+    Task<Result<TEntity>> GetByIdAsync(int id);
     Task<Result<TDto>> CreateAsync(TEntity entity);
     Task<Result<IEnumerable<TDto>>> GetAllAsync(Expression<Func<TEntity, bool>> expression);
     Task<Result<TDto>> UpdateAsync(TEntity entity);

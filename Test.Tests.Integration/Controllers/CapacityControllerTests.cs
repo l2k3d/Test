@@ -4,35 +4,28 @@ using Xunit;
 using FluentAssertions;
 using Test.Api.Models.RequestModels;
 
-namespace Test.Tests.Integration.Controllers;
-
-public class CapacityControllerTests(WebApplicationFactory<Program> sut) : BaseControllerTest(sut)
+namespace Test.Tests.Integration.Controllers
 {
-    [Fact]
-    public async void Capacity_ReturnsOkResult()
+    public class CapacityControllerTests(WebApplicationFactory<Program> sut) : BaseControllerTest(sut)
     {
-        // Arrange
-        var addProductRequestModel = new AddProductRequestModel
+        public static TheoryData<AddProductRequestModel, AddCapacityRequestModel, HttpStatusCode> CapacityData => new()
         {
-            Name = "name",
-            Quantity = 20
+            { new AddProductRequestModel { Name = "name", Quantity = 20 }, new AddCapacityRequestModel { ProductId = 1, Quantity = 20 }, HttpStatusCode.OK }
         };
 
-        await Post_AddProductRecordAsync(addProductRequestModel);
-
-        var addCapacityRequestModel = new AddCapacityRequestModel
+        [Theory]
+        [MemberData(nameof(CapacityData))]
+        public async void Capacity_Returns_Correct_Status(AddProductRequestModel addProductRequestModel, AddCapacityRequestModel addCapacityRequestModel, HttpStatusCode expectedStatusCode)
         {
-            ProductId = 1,
-            Quantity = 20
-        };
+            // Arrange
+            await Post_AddProductRecordAsync(addProductRequestModel);
 
-        // Act
-        var response = await Post_AddCapacityRecordAsync(addCapacityRequestModel);
+            // Act
+            var response = await Post_AddCapacityRecordAsync(addCapacityRequestModel);
 
-
-
-        // Assert
-        response.Should().NotBeNull();
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
+            // Assert
+            response.Should().NotBeNull();
+            response.StatusCode.Should().Be(expectedStatusCode);
+        }
     }
 }

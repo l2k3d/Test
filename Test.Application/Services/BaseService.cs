@@ -21,13 +21,13 @@ public abstract class BaseService<TEntity, TDto>
         _mapper = mapper;
     }
 
-    public async Task<Result<TDto>> GetByIdAsync(int id)
+    public async Task<Result<TEntity>> GetByIdAsync(int id)
     {
         var entity = await _repository.GetByIdAsync(id);
 
         return entity == null
-            ? Result.Failure<TDto>(Error.NotFound)
-            : Result.Success(_mapper.Map<TDto>(entity));
+            ? Result.Failure<TEntity>(Error.NotFound)
+            : Result.Success(_mapper.Map<TEntity>(entity));
     }
 
     public virtual async Task<Result<TDto>> AddAsync(TDto dto)
