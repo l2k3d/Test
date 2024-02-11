@@ -1,7 +1,32 @@
 @Test_HostAddress = http://localhost:5192
 
-### POST /api/v1/products/capacity
-POST http://localhost:5192/api/v1/products/capacity
+### Post Add Capacity Record
+
+POST {{Test_HostAddress}}/api/v1/products/capacity
+Content-Type: application/json
+
+{
+  "productId": 1,
+  "quantity": 100
+}
+
+### Get Products
+
+GET {{Test_HostAddress}}/api/v1/products
+
+### Post Add Product Record
+
+POST {{Test_HostAddress}}/api/v1/products
+Content-Type: application/json
+
+{
+  "name": "Product Name",
+  "quantity": 50
+}
+
+### Post Receive Product
+
+POST {{Test_HostAddress}}/api/v1/products/receive
 Content-Type: application/json
 
 {
@@ -9,32 +34,12 @@ Content-Type: application/json
   "quantity": 20
 }
 
-### GET /api/v1/products
-GET http://localhost:5192/api/v1/products?id=1
+### Post Dispatch Product
 
-### POST /api/v1/products
-POST http://localhost:5192/api/v1/products
+POST {{Test_HostAddress}}/api/v1/products/dispatch
 Content-Type: application/json
 
 {
-  "id": 1,
-  "quantity": 10
-}
-
-### POST /receive
-POST http://localhost:5192/receive
-Content-Type: application/json
-
-{
-  "id": 1,
-  "quantity": 10
-}
-
-### POST /dispatch
-POST http://localhost:5192/dispatch
-Content-Type: application/json
-
-{
-  "id": 1,
+  "productId": 1,
   "quantity": 10
 }

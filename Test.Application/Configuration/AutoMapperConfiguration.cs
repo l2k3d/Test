@@ -8,7 +8,9 @@ public class AutoMapperConfiguration : Profile
 {
     public AutoMapperConfiguration()
     {
-        CreateMap<ProductRecordDto, ProductRecordEntity>().ReverseMap();
-        CreateMap<CapacityRecordDto, CapacityRecordEntity>().ReverseMap();
+        CreateMap<ProductRecordDto, ProductRecordEntity>()
+            .ReverseMap();
+        CreateMap<CapacityRecordDto, CapacityRecordEntity>()
+            .ReverseMap();
     }
 }

@@ -8,11 +8,16 @@ public class AutoMapperConfiguration : Profile
 {
     public AutoMapperConfiguration()
     {
-        CreateMap<AddProductRequestModel, ProductRecordDto>().ReverseMap();
-        CreateMap<ReceiveProductRequestModel, ProductRecordDto>().ReverseMap();
-        CreateMap<DispatchProductRequestModel, ProductRecordDto>().ReverseMap();
-        CreateMap<AddProductRequestModel, ProductRecordDto>().ReverseMap();
-        CreateMap<DispatchProductRequestModel, ProductRecordDto>().ReverseMap();
+        CreateMap<AddProductRequestModel, ProductRecordDto>()
+            .ReverseMap();
+
+        CreateMap<ReceiveProductRequestModel, ProductRecordDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ProductId))
+            .ReverseMap();
+
+        CreateMap<DispatchProductRequestModel, ProductRecordDto>()
+            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.ProductId))
+            .ReverseMap();
 
 
         CreateMap<AddCapacityRequestModel, CapacityRecordDto>().ReverseMap();

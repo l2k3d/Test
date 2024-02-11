@@ -23,6 +23,8 @@ public class CapacityService(ICapacityRecordRepository repository, IMapper mappe
         if (productEntity.Quantity > capacityRecordDto.Quantity)
             return Result.Failure<CapacityRecordDto>(Error.QuantityIsTooHigh);
 
+        var capacityEntity = _mapper.Map<CapacityRecordEntity>(capacityRecordDto);
+
         return await AddAsync(capacityRecordDto);
     }
 

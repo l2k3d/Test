@@ -10,7 +10,7 @@ namespace Test.Controllers;
 
 [Route("api/v1/products/[controller]")]
 public class CapacityController(ICapacityService capacityService,IMapper mapper)
-    : BaseTestController<CapacityRecordDto>(mapper)
+    : BaseController<CapacityRecordDto>(mapper)
 {
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]

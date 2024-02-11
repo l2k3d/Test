@@ -25,22 +25,17 @@ public abstract class BaseControllerTest : IClassFixture<WebApplicationFactory<P
     => await _client.PostAsJsonAsync("/api/v1/products", requestBody);
 
     public async Task<HttpResponseMessage> Post_ReceiveProductAsync(ReceiveProductRequestModel requestBody)
-    {
-        return await _client.PostAsJsonAsync("/api/v1/products/receive", requestBody);
-    }
+        => await _client.PostAsJsonAsync("/api/v1/products/receive", requestBody);
 
     public async Task<HttpResponseMessage> Post_DispatchProductAsync(DispatchProductRequestModel requestBody)
-    {
-        return await _client.PostAsJsonAsync("/dispatch", requestBody);
-    }
+        => await _client.PostAsJsonAsync("/api/v1/products/dispatch", requestBody);
 
     public async Task<HttpResponseMessage> Get_ProductsAsync(int? id = null)
     {
         var requestUri = "/api/v1/products";
         if (id.HasValue)
-        {
             requestUri += $"?id={id}";
-        }
+
         return await _client.GetAsync(requestUri);
     }
 }

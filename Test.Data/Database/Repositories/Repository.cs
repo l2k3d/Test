@@ -1,7 +1,9 @@
 ﻿using Test.Data.Database.Entities;
 using Test.Data.Database.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Linq.Expressions;
+using Test.Data.Database.Extensions;
 
 namespace Test.Data.Database.Repositories;
 
@@ -38,8 +40,11 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
         return await query.ToListAsync();
     }
 
-    public async Task<TEntity?> GetByIdAsync(int id)
-        => await _dbSet.FindAsync(id);
+    public async Task<TEntity?> GetByIdAsync(int id, params Expression<Func<TEntity, object>>[] includeProperties)
+    {
+        var query = BuildQuery(includeProperties: includeProperties);
+        return await query.FirstOrDefaultAsync(entity => entity.Id == id);
+    }
 
     public async Task<int> UpdateAsync(TEntity entity)
     {
@@ -56,7 +61,7 @@ public abstract class Repository<TEntity> : IRepository<TEntity> where TEntity :
     protected virtual void Update(TEntity entity)
         => _dbSet.Update(entity);
 
-    protected virtual IQueryable<TEntity> BuildQuery(Expression<Func<TEntity, bool>> filter, params Expression<Func<TEntity, object>>[] includeProperties)
+    protected virtual IQueryable<TEntity> BuildQuery(Expression<Func<TEntity, bool>>? filter = default, params Expression<Func<TEntity, object>>[] includeProperties)
     {
         IQueryable<TEntity> query = _dbSet;
 

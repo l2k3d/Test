@@ -6,7 +6,7 @@ namespace Test.Api.Models.RequestModels;
 public class AddProductRequestModel : BaseRequestModel
 {
     [Required(ErrorMessage = "Must Include Name")]
-    public string Name { get; set; }
+    public string? Name { get; set; }
 
     [Required]
     [NotPositiveQuantity]

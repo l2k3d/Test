@@ -1,68 +1,74 @@
-﻿using FluentAssertions;
-using Microsoft.AspNetCore.Mvc.Testing;
+﻿using Microsoft.AspNetCore.Mvc.Testing;
 using System.Net;
 using Test.Api.Models.RequestModels;
 using Xunit;
+using FluentAssertions;
 
 namespace Test.Tests.Integration.Controllers;
 
 public class ProductsControllerTests(WebApplicationFactory<Program> sut) : BaseControllerTest(sut)
 {
-    [Fact]
-    public async Task Receiving_Products_Beyond_Capacity_Should_Return_Error()
+    [Theory]
+    [InlineData("New Product", 50, HttpStatusCode.OK)] // Testing success scenario
+    [InlineData(null, 50, HttpStatusCode.BadRequest)] // Testing bad request scenario with null name
+    public async Task Adding_Product_Should_Return_Correct_Status(string? name, int quantity, HttpStatusCode expectedStatusCode)
     {
         // Arrange
-        var requestContent = new ReceiveProductRequestModel
+        var requestContent = new AddProductRequestModel
         {
-            ProductId = 1,
-            Quantity = 1000
+            Name = name,
+            Quantity = quantity
         };
 
         // Act
-        var response = await Post_ReceiveProductAsync(requestContent);
+        var response = await Post_AddProductRecordAsync(requestContent);
 
         // Assert
-        response.StatusCode
-            .Should()
-            .Be(HttpStatusCode.BadRequest);
+        response.StatusCode.Should().Be(expectedStatusCode);
     }
 
-    [Fact]
-    public async Task Receiving_Products_Within_Capacity_Should_Update_Quantity()
+    [Theory]
+    [InlineData(1, 50, HttpStatusCode.OK)] // Testing receiving within capacity
+    [InlineData(1, 1000, HttpStatusCode.BadRequest)] // Testing receiving beyond capacity
+    public async Task Receiving_Products_Should_Return_Correct_Status(int productId, int quantity, HttpStatusCode expectedStatusCode)
     {
         // Arrange
-        var requestContent = new ReceiveProductRequestModel { ProductId = 1, Quantity = 100 };
+        await Post_AddProductRecordAsync(new AddProductRequestModel { Name = "Test", Quantity = 50 });
+        await Post_AddCapacityRecordAsync(new AddCapacityRequestModel { ProductId = productId, Quantity = 500 });
 
         // Act
-        var response = await Post_ReceiveProductAsync(requestContent);
+        var response = await Post_ReceiveProductAsync(new ReceiveProductRequestModel { ProductId = productId, Quantity = quantity });
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.StatusCode.Should().Be(expectedStatusCode);
     }
 
-    [Fact]
-    public async Task Dispatching_Products_Should_Update_Quantity()
+    [Theory]
+    [InlineData(1, 1000, HttpStatusCode.BadRequest)] // Testing dispatching within capacity
+    [InlineData(1, 20, HttpStatusCode.OK)] // Testing dispatching beyond held quanitity
+    public async Task Dispatch_Products_Should_Return_Correct_Status(int productId, int quantity, HttpStatusCode expectedStatusCode)
     {
         // Arrange
-        var requestContent = new DispatchProductRequestModel { ProductId = 1, Quantity = 20 };
+        await Post_AddProductRecordAsync(new AddProductRequestModel
+        {
+            Name = "Test",
+            Quantity = 50
+        });
+
+        await Post_AddCapacityRecordAsync(new AddCapacityRequestModel
+        {
+            ProductId = productId,
+            Quantity = 500
+        });
 
         // Act
-        var response = await Post_DispatchProductAsync(requestContent);
+        var response = await Post_DispatchProductAsync(new DispatchProductRequestModel
+        {
+            ProductId = productId,
+            Quantity = quantity
+        });
 
         // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
-    }
-
-    [Fact]
-    public async Task Retrieving_Product_Inventory_Should_Return_Correct_Inventory_Data()
-    {
-        // Arrange
-        var requestContent = new DispatchProductRequestModel { ProductId = 1, Quantity = 20 };
-
-        // Act
-        var response = await Post_DispatchProductAsync(requestContent);
-
-        // Assert
-        response.StatusCode.Should().Be(HttpStatusCode.OK);
+        response.StatusCode.Should().Be(expectedStatusCode);
     }
 }

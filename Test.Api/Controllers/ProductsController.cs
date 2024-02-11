@@ -10,7 +10,7 @@ namespace Test.Controllers;
 
 [Route("api/v1/[controller]")]
 public class ProductsController(IProductService productService,IMapper mapper) 
-    : BaseTestController<ProductRecordDto>(mapper)
+    : BaseController<ProductRecordDto>(mapper)
 {
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
@@ -30,7 +30,7 @@ public class ProductsController(IProductService productService,IMapper mapper)
         .AddAsync(MapToDto(request))
         .HandleResult();
 
-    [HttpPost("/Receive")]
+    [HttpPost("receive")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -40,7 +40,7 @@ public class ProductsController(IProductService productService,IMapper mapper)
         .ReceiveProductAsync(MapToDto(request))
         .HandleResult();
 
-    [HttpPost("/Dispatch")]
+    [HttpPost("dispatch")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]

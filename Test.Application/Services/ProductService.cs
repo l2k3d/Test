@@ -15,15 +15,21 @@ public class ProductService(IProductRecordRepository productRecordRepository, IM
 
     public async Task<Result<ProductRecordDto>> DispatchProductAsync(ProductRecordDto productRecordDto)
     {
-        var entity = await _productRecordRepository.GetByIdAsync(productRecordDto.Id);
-        if (entity == null)
+
+        var productEntity = await _productRecordRepository.GetByIdWithCapacityAsync(productRecordDto.Id);
+
+        if (productEntity == null)
             return Result.Failure<ProductRecordDto>(Error.NotFound);
 
-        entity.Quantity -= productRecordDto.Quantity;
-        if (entity.Quantity < 0)
-            return Result.Failure<ProductRecordDto>(Error.NotPositiveQuantity);
+        if (productEntity.Capacity == null)
+            return Result.Failure<ProductRecordDto>(Error.NotFound);
 
-        return await UpdateAsync(entity);
+        productEntity.Quantity -= productRecordDto.Quantity;
+
+        if (productEntity.Quantity < 0)
+            return Result.Failure<ProductRecordDto>(Error.QuantityIsTooLow);
+
+        return await UpdateAsync(productEntity);
     }
 
     public async Task<Result<IEnumerable<ProductRecordDto>>> GetAllProductsAsync(int? id)
@@ -31,15 +37,20 @@ public class ProductService(IProductRecordRepository productRecordRepository, IM
 
     public async Task<Result<ProductRecordDto>> ReceiveProductAsync(ProductRecordDto productRecordDto)
     {
-        var entity = await _productRecordRepository.GetByIdAsync(productRecordDto.Id);
-        if (entity == null)
+
+        var productEntity = await _productRecordRepository.GetByIdWithCapacityAsync(productRecordDto.Id);
+
+        if (productEntity == null)
             return Result.Failure<ProductRecordDto>(Error.NotFound);
 
-        entity.Quantity += productRecordDto.Quantity;
-        if (entity.Quantity > entity.Capacity.Quantity)
+        if (productEntity.Capacity == null)
+            return Result.Failure<ProductRecordDto>(Error.NotFound);
+
+        productEntity.Quantity += productRecordDto.Quantity;
+        if (productEntity.Quantity > productEntity.Capacity.Quantity)
             return Result.Failure<ProductRecordDto>(Error.QuantityIsTooHigh);
 
-        return await UpdateAsync(entity);
+        return await UpdateAsync(productEntity);
     }
 
 

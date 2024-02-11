@@ -9,7 +9,7 @@ namespace Test.Tests.Integration.Controllers;
 public class CapacityControllerTests(WebApplicationFactory<Program> sut) : BaseControllerTest(sut)
 {
     [Fact]
-    public async Task Capacity_ReturnsOkResult()
+    public async void Capacity_ReturnsOkResult()
     {
         // Arrange
         var addProductRequestModel = new AddProductRequestModel
@@ -28,6 +28,8 @@ public class CapacityControllerTests(WebApplicationFactory<Program> sut) : BaseC
 
         // Act
         var response = await Post_AddCapacityRecordAsync(addCapacityRequestModel);
+
+
 
         // Assert
         response.Should().NotBeNull();

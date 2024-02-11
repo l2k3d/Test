@@ -54,7 +54,7 @@ public abstract class BaseService<TEntity, TDto>
         return Result.Success(_mapper.Map<IEnumerable<TDto>>(entities));
     }
 
-    public async Task<Result<TDto>> UpdateAsync(TEntity entity)
+    public async virtual Task<Result<TDto>> UpdateAsync(TEntity entity)
     {
         var updatedRowcount = await _repository.UpdateAsync(entity);
         

@@ -6,7 +6,7 @@ using Test.Api.Models.RequestModels;
 namespace Test.Controllers;
 
 [ApiController]
-public class BaseTestController<TDto>(IMapper mapper) : ControllerBase where TDto : BaseDto
+public class BaseController<TDto>(IMapper mapper) : ControllerBase where TDto : BaseDto
 {
     private readonly IMapper _mapper = mapper;
 

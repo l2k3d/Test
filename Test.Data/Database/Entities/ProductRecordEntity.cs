@@ -7,7 +7,5 @@ public class ProductRecordEntity : Entity<ProductRecordEntity>
 {
     public int Quantity { get; set; }
 
-    [ForeignKey("CapacityRecord")]
-    public int CapacityId { get; set; }
-    public virtual required CapacityRecordEntity Capacity { get; set; }
+    public virtual CapacityRecordEntity? Capacity { get; set; }
 }
